@@ -1,0 +1,36 @@
+@startuml
+
+class Usuario 
+{
+    +id:int
+    +nome:string
+    +nivel:int
+    +nome:string
+    +senha:string
+}
+
+class Nivel 
+{
+    +id:int
+    +descricao:string
+}
+
+class Concurso 
+{
+    +id:int
+    +razao:string
+    +nome:string
+    +edital:string
+    +logradouro:string
+    +numero:string
+    +complemento:string
+    +bairro:string
+    +cidade:string
+    +uf:string
+    +telefone:string
+    
+
+}
+Usuario --> Nivel
+
+@enduml

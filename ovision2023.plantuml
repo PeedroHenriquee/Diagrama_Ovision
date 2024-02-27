@@ -1,0 +1,210 @@
+@startuml Diagrama de Classes do Projeto OVISION
+
+skinparam defaultFontName Courier New
+skinparam TitleFontSize 30
+skinparam FooterFontSize 12
+
+title Diagrama de Classes do Projeto\nO-VISION  
+
+right footer [  GrunaLabs - IFPI - 2023  ]
+
+package Animal #DEB887 {
+     
+class Animal
+{
+     +id:int
+     +codigo:int
+     +lote:int
+     +nome:string
+     +sexo:string
+     +dtNasc:DateTime
+     +peso:float
+     +pai:Animal
+     +mae:Animal
+     +tipo_criacao:Tipo_Criacao
+     +acasalamento:Acasalamento
+     +categoria:Categoria
+     +fase:Fase
+     +raca:list<Raca>
+     +fazenda:Fazenda
+}
+
+
+class ArquivoMorto
+{
+     +animal:Animal
+     +date:Date
+     +description:string
+}
+
+class Catalogo
+{
+     +id:int
+     +nome:string
+     +pathimage:string
+     +animal:Animal()
+}
+
+class ControleSanitario
+{
+     +id:int
+     +tipo:string
+     +data:Date
+}
+
+class Fase
+{
+     +cria:int
+     +recria:string
+     +engorda:string
+}
+
+class Categoria
+{
+     +id:int
+     +nome:string
+}
+
+class Acasalamento
+{
+     +id:int
+     +nome:string
+}
+
+class Tipo_Nascimento
+{
+     +id:int
+     +nome:string
+}
+
+class Peso_Periodo
+{
+     +id:int
+     +valor:int
+}
+
+class Manejo
+{
+     +id:int
+     +nome:string
+     +data:Date
+}
+
+class Raca
+{
+     +raca:string
+     +teor:float
+}
+}
+
+package Fazenda #CD903F {
+
+class Fazenda 
+{
+     +id:int
+     +nome:string
+     +proprietario:Proprietario()
+     +funcionarios:(List<Funcionario>)
+}
+
+}
+
+package Usuario #8FBC8F {
+
+class Funcionario
+{
+     +method(type):type
+}
+
+abstract class Usuario
+{
+     +id:int
+     +email:string
+     +password:Password()
+     +user:string
+     +login():
+}
+
+class Proprietario
+{
+     +insertFarm:void
+     +transferFarm(Fazenda):void
+     +EmployWorker(Fazenda):void
+}
+}
+
+package Finanças #48D1CC {
+
+class Caixa
+{
+     +id:int
+     +fazenda:Fazenda()
+     +caixa:float
+     +sell():void
+}
+
+class Venda
+{
+     +id:int
+     +produto:Produto()
+     +quantidade:float
+     +preco:float
+     +animal:Animal
+     +sell():void
+}
+
+class Compra
+{
+     +id:int
+     +codigo:string
+     +produto:Produto()
+     +quantidade:float
+     +animal:Animal()
+     +preco:float
+     +dividas:List<Divida>
+     +sell():void
+}
+
+class Divida
+{
+     +id:int
+     +compra:Compra()
+     +preco:float
+     +sell():void
+}
+}
+
+
+package Insumos #00BFFF {
+
+class Material
+{
+     +id:int
+     +nome:string
+     +preco:float
+     +qnt:float
+     +sell():void
+}
+}
+
+Proprietario -- Fazenda : "Possui"
+Fazenda #-- Animal : "Possui"
+Fazenda #- Caixa : "Possui"
+Fazenda --# Material : "Possui"
+Animal *- ArquivoMorto : "Pode ter"
+Animal *-- ControleSanitario : "Possui"
+Animal *- Catalogo : "Possui"
+Animal #-- Raca : "Possui"
+Animal #-- Manejo : "Possui"
+Animal #-- Peso_Periodo : "Possui"
+Animal #-- Tipo_Nascimento : "Possui"
+Animal #-- Acasalamento : "Possui"
+Animal #-- Categoria : "Possui"
+Animal #- Fase : "Possui"
+Animal -# Venda : "Possui"
+Animal -# Compra : "Possui"
+Compra *-- Divida : "Contém"
+Usuario <-- Proprietario : "Pode ser"
+Funcionario --> Usuario : "Pode ser"
+
+@enduml

@@ -1,0 +1,95 @@
+@startuml Ovi2
+!theme aws-orange
+skinparam defaultFontName Courier New
+skinparam TitleFontSize 30
+skinparam FooterFontSize 12
+
+title Diagrama de Classes do Projeto\nO-VISION
+
+right footer [  GrunaLabs - IFPI - 2023  ]
+
+class Animal {
+  + ID : int
+  + Nome : string
+  + DataNascimento : date
+  + Especie : string
+  + Raca : string
+  + Sexo : char
+  + Peso : double
+  + HistoricoMedico : string
+  + DataChegada : date
+  + DataPartida : date
+  + registrarNascimento()
+  + registrarPartida()
+  + registrarPesagem()
+  + registrarTratamento()
+}
+
+class Rebanho {
+  + ID : int
+  + Nome : string
+  + DataCriacao : date
+  + Localizacao : string
+  + Descricao : string
+  + adicionarAnimal()
+  + removerAnimal()
+  + listarAnimais()
+}
+
+class Veterinario {
+  + ID : int
+  + Nome : string
+  + Especializacao : string
+  + Contato : string
+  + registrarTratamento()
+  + consultarHistorico()
+}
+
+class Proprietario {
+  + ID : int
+  + Nome : string
+  + Endereco : string
+  + Contato : string
+  + adicionarRebanho()
+  + removerRebanho()
+  + listarRebanhos()
+}
+
+class Tratamento {
+  + ID : int
+  + Data : date
+  + VeterinarioResponsavel : Veterinario
+  + Descricao : string
+  + listarAnimaisTratados()
+}
+
+class Pesagem {
+  + ID : int
+  + Data : date
+  + AnimalPesado : Animal
+  + Peso : double
+}
+
+class Nascimento {
+  + ID : int
+  + Data : date
+  + Mae : Animal
+  + Filhote : Animal
+}
+
+class Partida {
+  + ID : int
+  + Data : date
+  + Animal : Animal
+  + Destino : string
+  + Motivo : string
+}
+
+Animal -- Tratamento : "Pode ter" 
+Animal -- Pesagem : "Pode ter"
+Animal -- Nascimento : "Pode ter"
+Animal -- Partida : "Pode ter"
+Rebanho -- Animal : "Contém"
+Veterinario -- Tratamento : "Realiza"
+Proprietario -- Rebanho : "Possui"
+@enduml
